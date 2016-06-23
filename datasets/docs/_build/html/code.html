@@ -1,0 +1,459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Auto Generated Code Documentation &mdash; Metrics 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Metrics 1.0.0 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to Metrics’s documentation!" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-metrics">
+<span id="auto-generated-code-documentation"></span><h1>Auto Generated Code Documentation<a class="headerlink" href="#module-metrics" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="metrics.DTR">
+<code class="descclassname">metrics.</code><code class="descname">DTR</code><span class="sig-paren">(</span><em>dates</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#DTR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.DTR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dataset Time Range -&gt; time interval between the earliest and the latest published document of a dataset</p>
+<div class="math">
+\[DTR = min(date_{doc}), max(date_{doc})\]</div>
+<p>where <span class="math">\(date_{doc}\)</span> is the publishing date of a document.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dates</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; list of dates (e.g. &#8216;2015-1-26&#8217;)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DTR</span><span class="p">([</span><span class="s1">&#39;2015-1-28&#39;</span><span class="p">,</span><span class="s1">&#39;2015-1-26&#39;</span><span class="p">,</span> <span class="s1">&#39;2013-8-12&#39;</span><span class="p">,</span> <span class="s1">&#39;2014-3-2&#39;</span><span class="p">])</span>
+<span class="go">[datetime.datetime(2013, 8, 12, 0, 0), datetime.datetime(2015, 1, 28, 0, 0)]</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)">list</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of two datetime values, denoting the earliest and the latest document publishing date</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="metrics.ELENM">
+<code class="descclassname">metrics.</code><code class="descname">ELENM</code><span class="sig-paren">(</span><em>list_of_entropy_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#ELENM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.ELENM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entropy of the Lexical Expressions (Normalized) of a Meaning</p>
+<div class="math">
+\[ELENM(O_M,R_M) = \frac{1}{n} \sum\limits_{j=1}^n H(O_{M_j},R_{M_j})\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>list_of_entropy_values</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; list of entropy values</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ELENM</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.2</span><span class="p">])</span>
+<span class="go">0.4</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ELENM</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">])</span>
+<span class="go">0.25</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">average entropy of variance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="metrics.EMNLE">
+<code class="descclassname">metrics.</code><code class="descname">EMNLE</code><span class="sig-paren">(</span><em>list_of_entropy_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#EMNLE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.EMNLE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entropy of the Meanings (Normalized) of a Lexical Expression</p>
+<div class="math">
+\[EMNLE(O_L,R_L) = \frac{1}{n} \sum\limits_{i=1}^n H(O_{L_i},R_{L_i})\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>list_of_entropy_values</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; list of entropy values</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EMNLE</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.2</span><span class="p">])</span>
+<span class="go">0.4</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EMNLE</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">])</span>
+<span class="go">0.25</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">average entropy of ambiguity</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="metrics.MOA">
+<code class="descclassname">metrics.</code><code class="descname">MOA</code><span class="sig-paren">(</span><em>o_l</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#MOA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.MOA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean Observed Ambiguity (MOA)</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MOA</span><span class="p">({</span><span class="s1">&#39;horse&#39;</span> <span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;horse.n.1&#39;</span><span class="p">,</span><span class="s1">&#39;horse.n.2&#39;</span><span class="p">]),</span><span class="s1">&#39;house&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;house.n.1&#39;</span><span class="p">])})</span>
+<span class="go">1.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MOA</span><span class="p">({})</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p>We define observed ambiguity of an expression as the cardinality of the set of meanings it refers to within a dataset (<span class="math">\(O_{L_i}\)</span>).
+The MOA of a dataset is the average of the individual observed ambiguity values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o_l</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; dict mapping lexical expressions to length of set of observed meanings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Mean Observed Ambiguity (MOA)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="metrics.MODA">
+<code class="descclassname">metrics.</code><code class="descname">MODA</code><span class="sig-paren">(</span><em>amb_dominance_distribution</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#MODA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.MODA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean Observed Dominance of Ambiguity (MODA)</p>
+<p>We define dominance of ambiguity as a frequency distribution of the dominant meaning of a lexical expression.
+The MODA of a dataset is the average dominance of all observed expressions.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MODA</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.7</span><span class="p">])</span>
+<span class="go">0.6</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MODA</span><span class="p">([])</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>amb_dominance_distribution</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; list containing the percentages for each dominant meaning of a lexical expression as observed in a dataset</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Mean Observed Dominance of Ambiguity (MODA)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="metrics.MODV">
+<code class="descclassname">metrics.</code><code class="descname">MODV</code><span class="sig-paren">(</span><em>var_dominance_distribution</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#MODV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.MODV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean Observed Dominance of Variance (MODV)</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MODV</span><span class="p">([</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.8</span><span class="p">])</span>
+<span class="go">0.6</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MODV</span><span class="p">([])</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p>We define the notion of dominance of variance, as a frequency distribution of the dominant lexical expression referring to a meaning.
+The MODV of a dataset is then the average dominance computed over all observed meanings.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>var_dominance_distribution</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; list containing the percentages for each dominant lexical expression of a meaning as observed within a dataset</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Mean Observed Dominance of Variance (MODV)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="metrics.MOV">
+<code class="descclassname">metrics.</code><code class="descname">MOV</code><span class="sig-paren">(</span><em>o_m</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#MOV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.MOV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean Observed Variance (MOV)</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MOV</span><span class="p">({</span><span class="s1">&#39;car.n.1&#39;</span> <span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;car&#39;</span><span class="p">,</span><span class="s1">&#39;automobile&#39;</span><span class="p">]),</span><span class="s1">&#39;house.n.1&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;house&#39;</span><span class="p">,</span><span class="s1">&#39;mansion&#39;</span><span class="p">])})</span>
+<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MOV</span><span class="p">({})</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p>We define observed variance of a meaning as the cardinality of the set of lexical expressions that express it within a dataset (<span class="math">\(O_{M_j}\)</span>).
+The MOV of a dataset is the average of the individual observed variance values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o_m</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; dict mapping meanings to length of set of observed lexical expressions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Mean Observed Variance (MOV)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="metrics.RORA">
+<code class="descclassname">metrics.</code><code class="descname">RORA</code><span class="sig-paren">(</span><em>o_l</em>, <em>r_l</em>, <em>ignore_theoretical_one=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#RORA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.RORA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ratio between observed and resource ambiguity</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RORA</span><span class="p">({</span><span class="s1">&#39;horse&#39;</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;horse.n.1&#39;</span><span class="p">,</span><span class="s1">&#39;horse.n.2&#39;</span><span class="p">])),</span><span class="s1">&#39;house&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;house.n.1&#39;</span><span class="p">]))},</span> <span class="p">{</span><span class="s1">&#39;horse&#39;</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;horse.n.1&#39;</span><span class="p">,</span><span class="s1">&#39;horse.n.2&#39;</span><span class="p">,</span><span class="s1">&#39;horse.n.3&#39;</span><span class="p">,</span><span class="s1">&#39;horse.n.4&#39;</span><span class="p">])),</span><span class="s1">&#39;house&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;house.n.1&#39;</span><span class="p">,</span><span class="s1">&#39;house.n.2&#39;</span><span class="p">]))})</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+<div class="math">
+\[RORA(O_L,R_L) = \frac{1}{n} \sum\limits_{i=1}^n ratio_{amb}(O_{L_i},R_{L_i})\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>o_l</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; dict mapping lexical expressions to length of set of observed meanings</li>
+<li><strong>r_l</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; dict mapping lexical expressions to length of set of resource meanings</li>
+<li><strong>ignore_theoretical_one</strong> &#8211; boolean value which indicates whether the monosemous cases should be ignored. We set this to True in our Analysis (Section 5).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="metrics.RORV">
+<code class="descclassname">metrics.</code><code class="descname">RORV</code><span class="sig-paren">(</span><em>o_m</em>, <em>r_m</em>, <em>ignore_theoretical_one=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#RORV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.RORV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ratio between observed and resource variance</p>
+<div class="math">
+\[RORV(O_M,R_M) = \frac{1}{n} \sum\limits_{i=1}^n ratio_{var}(O_{M_j},R_{M_j})\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RORV</span><span class="p">({</span><span class="s1">&#39;car.n.1&#39;</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;car&#39;</span><span class="p">,</span><span class="s1">&#39;automobile&#39;</span><span class="p">])),</span><span class="s1">&#39;house.n.1&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;house&#39;</span><span class="p">,</span><span class="s1">&#39;mansion&#39;</span><span class="p">]))},{</span><span class="s1">&#39;car.n.1&#39;</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;car&#39;</span><span class="p">,</span><span class="s1">&#39;automobile&#39;</span><span class="p">,</span><span class="s1">&#39;vehicle&#39;</span><span class="p">,</span><span class="s1">&#39;wagon&#39;</span><span class="p">])),</span><span class="s1">&#39;house.n.1&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;house&#39;</span><span class="p">,</span><span class="s1">&#39;mansion&#39;</span><span class="p">,</span><span class="s1">&#39;shack&#39;</span><span class="p">,</span><span class="s1">&#39;residence&#39;</span><span class="p">]))})</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>o_m</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; dict mapping meanings to length of set of observed lexical expressions</li>
+<li><strong>r_m</strong> (<a class="reference external" href="https://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; dict mapping meanings to length of set of resource lexical expressions</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Ratio between observed and resource variance on a dataset level</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="metrics.ambiguity">
+<code class="descclassname">metrics.</code><code class="descname">ambiguity</code><span class="sig-paren">(</span><em>o_l_i</em>, <em>r_l_i</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#ambiguity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.ambiguity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ratio between observed and resource ambiguity for a single lexical expression</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ambiguity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;bank.n.1&#39;</span><span class="p">])),</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;bank.n.1&#39;</span><span class="p">,</span><span class="s1">&#39;bank.n.2&#39;</span><span class="p">])))</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+<div class="math">
+\[ratio_{amb}(O_{L_i},R_{L_i})  = \frac{|\{M_j:M_j \in O_{L_i}\}|}{|\{M_j:M_j \in R_{L_i}\}|}\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>o_l_i</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; length of set of observed meanings for lexical expression</li>
+<li><strong>r_l_i</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; length of set of resource meanings for lexical expression</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ratio between observed and resource ambiguity</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="metrics.entropy">
+<code class="descclassname">metrics.</code><code class="descname">entropy</code><span class="sig-paren">(</span><em>list_of_probs</em>, <em>normalized=False</em>, <em>base=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entropy for a lexical expression/meaning, consequently, computed according to the formulas:</p>
+<div class="math">
+\[H(O_{L_i}) = \frac{ -\sum\limits_{j=1}^n p(M_j|L_i) log_2p(M_j|L_i) } {log_2(n)}\]\[H(O_{M_j}) = \frac{ -\sum\limits_{i=1}^n p(L_i|M_j) log_2p(L_i|M_j) } {log_2(n)}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entropy</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span><span class="n">normalized</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entropy</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span><span class="n">normalized</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="go">2.321928094887362</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">entropy</span><span class="p">([])</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>list_of_probs</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; list of probabilities</li>
+<li><strong>normalized</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; True: normalized entropy will be returned</li>
+<li><strong>base</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; log base</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">normalized entropy. 0.0 is returned if list is empty</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="metrics.variance">
+<code class="descclassname">metrics.</code><code class="descname">variance</code><span class="sig-paren">(</span><em>o_m_j</em>, <em>r_m_j</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/metrics.html#variance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#metrics.variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ratio between observed and resource variance for a single meaning</p>
+<div class="math">
+\[ratio_{var}(O_{M_j},R_{M_j})  = \frac{|\{L_i:L_i \in O_{M_j}\}|}{|\{L_i:L_i \in R_{M_j}\}|}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">variance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>o_m_j</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; length of set of lexical expressions which can verbalize a certain meaning</li>
+<li><strong>r_m_j</strong> (<a class="reference external" href="https://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; length of set of lexical expressions that express a meaning as observed within a dataset</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/library/functions.html#float" title="(in Python v2.7)">float</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ratio between observed and resource variance</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Metrics&#8217;s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/code.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Filip Ilievski and Marten Postma.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/code.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

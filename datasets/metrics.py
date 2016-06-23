@@ -1,20 +1,20 @@
-import datetime 
+import datetime
 from math import *
 
 def MOA(o_l):
     '''
     Mean Observed Ambiguity (MOA)
-    
+
     >>> MOA({'horse' : set(['horse.n.1','horse.n.2']),'house': set(['house.n.1'])})
     1.5
     >>> MOA({})
     0.0
-    
-    We define observed ambiguity of an expression as the cardinality of the set of meanings it refers to within a dataset (:math:`O_{L_i}`). 
+
+    We define observed ambiguity of an expression as the cardinality of the set of meanings it refers to within a dataset (:math:`O_{L_i}`).
     The MOA of a dataset is the average of the individual observed ambiguity values.
 
     :param dict o_l: dict mapping lexical expressions to length of set of observed meanings
-    
+
     :rtype: float
     :return: Mean Observed Ambiguity (MOA)
     '''
@@ -24,21 +24,21 @@ def MOA(o_l):
         moa = sum(observed_ambiguities)/len(observed_ambiguities)
     else:
         moa = 0.0
-    
+
     return moa
-           
+
 def MOV(o_m):
     '''
     Mean Observed Variance (MOV)
-    
+
     >>> MOV({'car.n.1' : set(['car','automobile']),'house.n.1': set(['house','mansion'])})
     2.0
     >>> MOV({})
     0.0
-    
-    We define observed variance of a meaning as the cardinality of the set of lexical expressions that express it within a dataset (:math:`O_{M_j}`). 
+
+    We define observed variance of a meaning as the cardinality of the set of lexical expressions that express it within a dataset (:math:`O_{M_j}`).
     The MOV of a dataset is the average of the individual observed variance values.
-    
+
     :param dict o_m: dict mapping meanings to length of set of observed lexical expressions
 
     :rtype: float
@@ -50,24 +50,24 @@ def MOV(o_m):
         mov = sum(observed_variances)/len(observed_variances)
     else:
         mov = 0.0
-    
+
     return mov
-    
+
 def MODA(amb_dominance_distribution):
     '''
     Mean Observed Dominance of Ambiguity (MODA)
 
-    We define dominance of ambiguity as a frequency distribution of the dominant meaning of a lexical expression. 
+    We define dominance of ambiguity as a frequency distribution of the dominant meaning of a lexical expression.
     The MODA of a dataset is the average dominance of all observed expressions.
-        
+
     >>> MODA([0.5,0.6,0.7])
     0.6
-    
+
     >>> MODA([])
     0.0
-    
+
     :param list amb_dominance_distribution: list containing the percentages for each dominant meaning of a lexical expression as observed in a dataset
-    
+
     :rtype: float
     :return: Mean Observed Dominance of Ambiguity (MODA)
     '''
@@ -77,24 +77,24 @@ def MODA(amb_dominance_distribution):
         moda = sum(dominances)/len(dominances)
     else:
         moda = 0.0
-    
+
     return moda
-    
+
 def MODV(var_dominance_distribution):
     '''
     Mean Observed Dominance of Variance (MODV)
-    
+
     >>> MODV([0.4,0.6,0.8])
     0.6
-    
+
     >>> MODV([])
     0.0
-    
-    We define the notion of dominance of variance, as a frequency distribution of the dominant lexical expression referring to a meaning. 
+
+    We define the notion of dominance of variance, as a frequency distribution of the dominant lexical expression referring to a meaning.
     The MODV of a dataset is then the average dominance computed over all observed meanings.
-    
+
     :param list var_dominance_distribution: list containing the percentages for each dominant lexical expression of a meaning as observed within a dataset
-    
+
     :rtype: float
     :return: Mean Observed Dominance of Variance (MODV)
     '''
@@ -104,7 +104,7 @@ def MODV(var_dominance_distribution):
         modv = sum(dominances)/len(dominances)
     else:
         modv = 0.0
-    
+
     return modv
 
 def EMNLE(list_of_entropy_values):
@@ -112,7 +112,7 @@ def EMNLE(list_of_entropy_values):
     Entropy of the Meanings (Normalized) of a Lexical Expression
 
     .. math::
-	EMNLE(O_L,R_L) = \\frac{1}{n} \\sum\\limits_{i=1}^n H(O_{L_i},R_{L_i})
+	   EMNLE(O_L,R_L) = \\frac{1}{n} \\sum\\limits_{i=1}^n H(O_{L_i},R_{L_i})
 
     :param list list_of_entropy_values: list of entropy values
     >>> EMNLE([0.5,0.5,0.2])
@@ -131,7 +131,7 @@ def ELENM(list_of_entropy_values):
     Entropy of the Lexical Expressions (Normalized) of a Meaning
 
     .. math::
-	ELENM(O_M,R_M) = \\frac{1}{n} \\sum\\limits_{j=1}^n H(O_{M_j},R_{M_j})
+	   ELENM(O_M,R_M) = \\frac{1}{n} \\sum\\limits_{j=1}^n H(O_{M_j},R_{M_j})
 
     :param list list_of_entropy_values: list of entropy values
     >>> ELENM([0.5,0.5,0.2])
@@ -152,7 +152,7 @@ def RORA(o_l, r_l, ignore_theoretical_one=True):
 
     >>> RORA({'horse' : len(set(['horse.n.1','horse.n.2'])),'house': len(set(['house.n.1']))}, {'horse' : len(set(['horse.n.1','horse.n.2','horse.n.3','horse.n.4'])),'house': len(set(['house.n.1','house.n.2']))})
     0.5
-    
+
     .. math::
         RORA(O_L,R_L) = \\frac{1}{n} \\sum\\limits_{i=1}^n ratio_{amb}(O_{L_i},R_{L_i})
 
@@ -191,13 +191,13 @@ def RORA(o_l, r_l, ignore_theoretical_one=True):
 def RORV(o_m, r_m, ignore_theoretical_one=True):
     '''
     Ratio between observed and resource variance
-   
+
     .. math::
         RORV(O_M,R_M) = \\frac{1}{n} \\sum\\limits_{i=1}^n ratio_{var}(O_{M_j},R_{M_j})
 
     >>> RORV({'car.n.1' : len(set(['car','automobile'])),'house.n.1': len(set(['house','mansion']))},{'car.n.1' : len(set(['car','automobile','vehicle','wagon'])),'house.n.1': len(set(['house','mansion','shack','residence']))})
     0.5
-    
+
     :param dict o_m: dict mapping meanings to length of set of observed lexical expressions
     :param dict r_m: dict mapping meanings to length of set of resource lexical expressions
 
@@ -259,12 +259,11 @@ def variance(o_m_j,r_m_j):
     '''
     Ratio between observed and resource variance for a single meaning
 
-    .. math::
-        ratio_{var}(O_{M_j},R_{M_j})  = \\frac{|\{L_i:L_i \\in O_{M_j}\}|}{|\{L_i:L_i \\in R_{M_j}\}|}
+    .. math:: ratio_{var}(O_{M_j},R_{M_j})  = \\frac{|\{L_i:L_i \\in O_{M_j}\}|}{|\{L_i:L_i \\in R_{M_j}\}|}
 
     >>> variance(1,2)
     0.5
-    
+
     :param int o_m_j: length of set of lexical expressions which can verbalize a certain meaning
     :param int r_m_j: length of set of lexical expressions that express a meaning as observed within a dataset
 
@@ -294,7 +293,7 @@ def entropy(list_of_probs,
     0.0
 
     :param list list_of_probs: list of probabilities
-    :param bool normalized: True: normalized entropy will be returned   
+    :param bool normalized: True: normalized entropy will be returned
     :param int base: log base
 
     :rtype: float
@@ -313,15 +312,16 @@ def entropy(list_of_probs,
            len(list_of_probs) >= 2]):
         len_list_of_probs = len(list_of_probs)
         S = S/log(len_list_of_probs,base)
-   
-    return abs(S)    
+
+    return abs(S)
 
 def DTR(dates):
-    ''' 
-    Dataset Time Range -> time interval between the earliest and the latest published document of a dataset 
+    '''
+    Dataset Time Range -> time interval between the earliest and the latest published document of a dataset
 
     .. math::
-        DTR=[min(date_{doc}),max(date_{doc})]
+
+        DTR = min(date_{doc}), max(date_{doc})
 
     where :math:`date_{doc}` is the publishing date of a document.
 

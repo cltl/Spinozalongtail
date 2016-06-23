@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>metrics &mdash; Metrics 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Metrics 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for metrics</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="MOA"><a class="viewcode-back" href="../code.html#metrics.MOA">[docs]</a><span class="k">def</span> <span class="nf">MOA</span><span class="p">(</span><span class="n">o_l</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Mean Observed Ambiguity (MOA)</span>
+
+<span class="sd">    &gt;&gt;&gt; MOA({&#39;horse&#39; : set([&#39;horse.n.1&#39;,&#39;horse.n.2&#39;]),&#39;house&#39;: set([&#39;house.n.1&#39;])})</span>
+<span class="sd">    1.5</span>
+<span class="sd">    &gt;&gt;&gt; MOA({})</span>
+<span class="sd">    0.0</span>
+
+<span class="sd">    We define observed ambiguity of an expression as the cardinality of the set of meanings it refers to within a dataset (:math:`O_{L_i}`).</span>
+<span class="sd">    The MOA of a dataset is the average of the individual observed ambiguity values.</span>
+
+<span class="sd">    :param dict o_l: dict mapping lexical expressions to length of set of observed meanings</span>
+
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: Mean Observed Ambiguity (MOA)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">o_l</span><span class="p">:</span>
+        <span class="n">observed_ambiguities</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">o_l</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+                                <span class="k">if</span> <span class="n">value</span><span class="p">]</span>
+        <span class="n">moa</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">observed_ambiguities</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">observed_ambiguities</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">moa</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="n">moa</span></div>
+
+<div class="viewcode-block" id="MOV"><a class="viewcode-back" href="../code.html#metrics.MOV">[docs]</a><span class="k">def</span> <span class="nf">MOV</span><span class="p">(</span><span class="n">o_m</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Mean Observed Variance (MOV)</span>
+
+<span class="sd">    &gt;&gt;&gt; MOV({&#39;car.n.1&#39; : set([&#39;car&#39;,&#39;automobile&#39;]),&#39;house.n.1&#39;: set([&#39;house&#39;,&#39;mansion&#39;])})</span>
+<span class="sd">    2.0</span>
+<span class="sd">    &gt;&gt;&gt; MOV({})</span>
+<span class="sd">    0.0</span>
+
+<span class="sd">    We define observed variance of a meaning as the cardinality of the set of lexical expressions that express it within a dataset (:math:`O_{M_j}`).</span>
+<span class="sd">    The MOV of a dataset is the average of the individual observed variance values.</span>
+
+<span class="sd">    :param dict o_m: dict mapping meanings to length of set of observed lexical expressions</span>
+
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: Mean Observed Variance (MOV)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">o_m</span><span class="p">:</span>
+        <span class="n">observed_variances</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">o_m</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+                              <span class="k">if</span> <span class="n">value</span><span class="p">]</span>
+        <span class="n">mov</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">observed_variances</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">observed_variances</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mov</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="n">mov</span></div>
+
+<div class="viewcode-block" id="MODA"><a class="viewcode-back" href="../code.html#metrics.MODA">[docs]</a><span class="k">def</span> <span class="nf">MODA</span><span class="p">(</span><span class="n">amb_dominance_distribution</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Mean Observed Dominance of Ambiguity (MODA)</span>
+
+<span class="sd">    We define dominance of ambiguity as a frequency distribution of the dominant meaning of a lexical expression.</span>
+<span class="sd">    The MODA of a dataset is the average dominance of all observed expressions.</span>
+
+<span class="sd">    &gt;&gt;&gt; MODA([0.5,0.6,0.7])</span>
+<span class="sd">    0.6</span>
+
+<span class="sd">    &gt;&gt;&gt; MODA([])</span>
+<span class="sd">    0.0</span>
+
+<span class="sd">    :param list amb_dominance_distribution: list containing the percentages for each dominant meaning of a lexical expression as observed in a dataset</span>
+
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: Mean Observed Dominance of Ambiguity (MODA)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">amb_dominance_distribution</span><span class="p">:</span>
+        <span class="n">dominances</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">amb_dominance_distribution</span>
+                      <span class="k">if</span> <span class="n">value</span><span class="p">]</span>
+        <span class="n">moda</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dominances</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">dominances</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">moda</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="n">moda</span></div>
+
+<div class="viewcode-block" id="MODV"><a class="viewcode-back" href="../code.html#metrics.MODV">[docs]</a><span class="k">def</span> <span class="nf">MODV</span><span class="p">(</span><span class="n">var_dominance_distribution</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Mean Observed Dominance of Variance (MODV)</span>
+
+<span class="sd">    &gt;&gt;&gt; MODV([0.4,0.6,0.8])</span>
+<span class="sd">    0.6</span>
+
+<span class="sd">    &gt;&gt;&gt; MODV([])</span>
+<span class="sd">    0.0</span>
+
+<span class="sd">    We define the notion of dominance of variance, as a frequency distribution of the dominant lexical expression referring to a meaning.</span>
+<span class="sd">    The MODV of a dataset is then the average dominance computed over all observed meanings.</span>
+
+<span class="sd">    :param list var_dominance_distribution: list containing the percentages for each dominant lexical expression of a meaning as observed within a dataset</span>
+
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: Mean Observed Dominance of Variance (MODV)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">var_dominance_distribution</span><span class="p">:</span>
+        <span class="n">dominances</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">var_dominance_distribution</span>
+                      <span class="k">if</span> <span class="n">value</span><span class="p">]</span>
+        <span class="n">modv</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">dominances</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">dominances</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">modv</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="n">modv</span></div>
+
+<div class="viewcode-block" id="EMNLE"><a class="viewcode-back" href="../code.html#metrics.EMNLE">[docs]</a><span class="k">def</span> <span class="nf">EMNLE</span><span class="p">(</span><span class="n">list_of_entropy_values</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Entropy of the Meanings (Normalized) of a Lexical Expression</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">	   EMNLE(O_L,R_L) = \\frac{1}{n} \\sum\\limits_{i=1}^n H(O_{L_i},R_{L_i})</span>
+
+<span class="sd">    :param list list_of_entropy_values: list of entropy values</span>
+<span class="sd">    &gt;&gt;&gt; EMNLE([0.5,0.5,0.2])</span>
+<span class="sd">    0.4</span>
+
+<span class="sd">    &gt;&gt;&gt; EMNLE([0.0,0.0,0.0,1.0])</span>
+<span class="sd">    0.25</span>
+
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: average entropy of ambiguity</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">list_of_entropy_values</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">list_of_entropy_values</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ELENM"><a class="viewcode-back" href="../code.html#metrics.ELENM">[docs]</a><span class="k">def</span> <span class="nf">ELENM</span><span class="p">(</span><span class="n">list_of_entropy_values</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Entropy of the Lexical Expressions (Normalized) of a Meaning</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">	   ELENM(O_M,R_M) = \\frac{1}{n} \\sum\\limits_{j=1}^n H(O_{M_j},R_{M_j})</span>
+
+<span class="sd">    :param list list_of_entropy_values: list of entropy values</span>
+<span class="sd">    &gt;&gt;&gt; ELENM([0.5,0.5,0.2])</span>
+<span class="sd">    0.4</span>
+
+<span class="sd">    &gt;&gt;&gt; ELENM([0.0,0.0,0.0,1.0])</span>
+<span class="sd">    0.25</span>
+
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: average entropy of variance</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">list_of_entropy_values</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">list_of_entropy_values</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RORA"><a class="viewcode-back" href="../code.html#metrics.RORA">[docs]</a><span class="k">def</span> <span class="nf">RORA</span><span class="p">(</span><span class="n">o_l</span><span class="p">,</span> <span class="n">r_l</span><span class="p">,</span> <span class="n">ignore_theoretical_one</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Ratio between observed and resource ambiguity</span>
+
+
+<span class="sd">    &gt;&gt;&gt; RORA({&#39;horse&#39; : len(set([&#39;horse.n.1&#39;,&#39;horse.n.2&#39;])),&#39;house&#39;: len(set([&#39;house.n.1&#39;]))}, {&#39;horse&#39; : len(set([&#39;horse.n.1&#39;,&#39;horse.n.2&#39;,&#39;horse.n.3&#39;,&#39;horse.n.4&#39;])),&#39;house&#39;: len(set([&#39;house.n.1&#39;,&#39;house.n.2&#39;]))})</span>
+<span class="sd">    0.5</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        RORA(O_L,R_L) = \\frac{1}{n} \\sum\\limits_{i=1}^n ratio_{amb}(O_{L_i},R_{L_i})</span>
+
+<span class="sd">    :param dict o_l: dict mapping lexical expressions to length of set of observed meanings</span>
+<span class="sd">    :param dict r_l: dict mapping lexical expressions to length of set of resource meanings</span>
+<span class="sd">    :param ignore_theoretical_one: boolean value which indicates whether the monosemous cases should be ignored. We set this to True in our Analysis (Section 5).</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">ambiguities</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">le</span><span class="p">,</span><span class="n">o_l_i</span> <span class="ow">in</span> <span class="n">o_l</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+        <span class="c1"># if no o_l_i</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">o_l_i</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># if no r_l_i</span>
+        <span class="k">if</span> <span class="n">le</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">r_l</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">r_l_i</span> <span class="o">=</span> <span class="n">r_l</span><span class="p">[</span><span class="n">le</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">r_l_i</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+
+        <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">ignore_theoretical_one</span><span class="p">,</span>
+                <span class="n">r_l_i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]):</span>
+            <span class="k">continue</span>
+
+        <span class="n">amb</span> <span class="o">=</span> <span class="n">ambiguity</span><span class="p">(</span><span class="n">o_l_i</span><span class="p">,</span><span class="n">r_l_i</span><span class="p">)</span>
+        <span class="n">ambiguities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">amb</span><span class="p">)</span>
+
+    <span class="n">rora_value</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">ambiguities</span><span class="p">))</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ambiguities</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">rora_value</span></div>
+
+<div class="viewcode-block" id="RORV"><a class="viewcode-back" href="../code.html#metrics.RORV">[docs]</a><span class="k">def</span> <span class="nf">RORV</span><span class="p">(</span><span class="n">o_m</span><span class="p">,</span> <span class="n">r_m</span><span class="p">,</span> <span class="n">ignore_theoretical_one</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Ratio between observed and resource variance</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        RORV(O_M,R_M) = \\frac{1}{n} \\sum\\limits_{i=1}^n ratio_{var}(O_{M_j},R_{M_j})</span>
+
+<span class="sd">    &gt;&gt;&gt; RORV({&#39;car.n.1&#39; : len(set([&#39;car&#39;,&#39;automobile&#39;])),&#39;house.n.1&#39;: len(set([&#39;house&#39;,&#39;mansion&#39;]))},{&#39;car.n.1&#39; : len(set([&#39;car&#39;,&#39;automobile&#39;,&#39;vehicle&#39;,&#39;wagon&#39;])),&#39;house.n.1&#39;: len(set([&#39;house&#39;,&#39;mansion&#39;,&#39;shack&#39;,&#39;residence&#39;]))})</span>
+<span class="sd">    0.5</span>
+
+<span class="sd">    :param dict o_m: dict mapping meanings to length of set of observed lexical expressions</span>
+<span class="sd">    :param dict r_m: dict mapping meanings to length of set of resource lexical expressions</span>
+
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: Ratio between observed and resource variance on a dataset level</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">variances</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">m</span><span class="p">,</span><span class="n">o_m_j</span> <span class="ow">in</span> <span class="n">o_m</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+        <span class="c1">#log if no o_m_j</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">o_m_j</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="c1">#log if no r_m</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">r_m</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">r_m_j</span> <span class="o">=</span> <span class="n">r_m</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">r_m_j</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">ignore_theoretical_one</span><span class="p">,</span>
+                <span class="n">r_m_j</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]):</span>
+            <span class="k">continue</span>
+
+        <span class="n">var</span> <span class="o">=</span> <span class="n">variance</span><span class="p">(</span><span class="n">o_m_j</span><span class="p">,</span><span class="n">r_m_j</span><span class="p">)</span>
+        <span class="n">variances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">variances</span><span class="p">:</span>
+        <span class="n">rorv_value</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">variances</span><span class="p">))</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">variances</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rorv_value</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="n">rorv_value</span></div>
+
+
+<div class="viewcode-block" id="ambiguity"><a class="viewcode-back" href="../code.html#metrics.ambiguity">[docs]</a><span class="k">def</span> <span class="nf">ambiguity</span><span class="p">(</span><span class="n">o_l_i</span><span class="p">,</span><span class="n">r_l_i</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Ratio between observed and resource ambiguity for a single lexical expression</span>
+
+<span class="sd">    &gt;&gt;&gt; ambiguity(len(set([&#39;bank.n.1&#39;])), len(set([&#39;bank.n.1&#39;,&#39;bank.n.2&#39;])))</span>
+<span class="sd">    0.5</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        ratio_{amb}(O_{L_i},R_{L_i})  = \\frac{|\{M_j:M_j \\in O_{L_i}\}|}{|\{M_j:M_j \\in R_{L_i}\}|}</span>
+
+<span class="sd">    :param int o_l_i: length of set of observed meanings for lexical expression</span>
+<span class="sd">    :param int r_l_i: length of set of resource meanings for lexical expression</span>
+
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: ratio between observed and resource ambiguity</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">o_l_i</span><span class="o">/</span><span class="n">r_l_i</span></div>
+
+
+<div class="viewcode-block" id="variance"><a class="viewcode-back" href="../code.html#metrics.variance">[docs]</a><span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="n">o_m_j</span><span class="p">,</span><span class="n">r_m_j</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Ratio between observed and resource variance for a single meaning</span>
+
+<span class="sd">    .. math:: ratio_{var}(O_{M_j},R_{M_j})  = \\frac{|\{L_i:L_i \\in O_{M_j}\}|}{|\{L_i:L_i \\in R_{M_j}\}|}</span>
+
+<span class="sd">    &gt;&gt;&gt; variance(1,2)</span>
+<span class="sd">    0.5</span>
+
+<span class="sd">    :param int o_m_j: length of set of lexical expressions which can verbalize a certain meaning</span>
+<span class="sd">    :param int r_m_j: length of set of lexical expressions that express a meaning as observed within a dataset</span>
+
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: ratio between observed and resource variance</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">o_m_j</span><span class="o">/</span><span class="n">r_m_j</span></div>
+
+<div class="viewcode-block" id="entropy"><a class="viewcode-back" href="../code.html#metrics.entropy">[docs]</a><span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="n">list_of_probs</span><span class="p">,</span>
+            <span class="n">normalized</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+            <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Entropy for a lexical expression/meaning, consequently, computed according to the formulas\:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        H(O_{L_i}) = \\frac{ -\\sum\\limits_{j=1}^n p(M_j|L_i) log_2p(M_j|L_i) } {log_2(n)}</span>
+
+<span class="sd">        H(O_{M_j}) = \\frac{ -\\sum\\limits_{i=1}^n p(L_i|M_j) log_2p(L_i|M_j) } {log_2(n)}</span>
+
+<span class="sd">    &gt;&gt;&gt; entropy([0.2,0.2,0.2,0.2,0.2],normalized=True)</span>
+<span class="sd">    1.0</span>
+
+<span class="sd">    &gt;&gt;&gt; entropy([0.2,0.2,0.2,0.2,0.2],normalized=False)</span>
+<span class="sd">    2.321928094887362</span>
+
+<span class="sd">    &gt;&gt;&gt; entropy([])</span>
+<span class="sd">    0.0</span>
+
+<span class="sd">    :param list list_of_probs: list of probabilities</span>
+<span class="sd">    :param bool normalized: True: normalized entropy will be returned</span>
+<span class="sd">    :param int base: log base</span>
+
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: normalized entropy. 0.0 is returned if list is empty</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1">#if empty list, return 0.0:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">list_of_probs</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+
+    <span class="c1">#calculate Shannon Entropy (S) = -Si(piLnpi)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">([</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="p">(</span> <span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">base</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+                  <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">list_of_probs</span><span class="p">])</span>
+
+    <span class="c1">#normalize if needed</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">normalized</span><span class="p">,</span>
+           <span class="nb">len</span><span class="p">(</span><span class="n">list_of_probs</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">]):</span>
+        <span class="n">len_list_of_probs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_of_probs</span><span class="p">)</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">S</span><span class="o">/</span><span class="n">log</span><span class="p">(</span><span class="n">len_list_of_probs</span><span class="p">,</span><span class="n">base</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">S</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DTR"><a class="viewcode-back" href="../code.html#metrics.DTR">[docs]</a><span class="k">def</span> <span class="nf">DTR</span><span class="p">(</span><span class="n">dates</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Dataset Time Range -&gt; time interval between the earliest and the latest published document of a dataset</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        DTR = min(date_{doc}), max(date_{doc})</span>
+
+<span class="sd">    where :math:`date_{doc}` is the publishing date of a document.</span>
+
+<span class="sd">    :param list dates: list of dates (e.g. &#39;2015-1-26&#39;)</span>
+
+<span class="sd">    &gt;&gt;&gt; DTR([&#39;2015-1-28&#39;,&#39;2015-1-26&#39;, &#39;2013-8-12&#39;, &#39;2014-3-2&#39;])</span>
+<span class="sd">    [datetime.datetime(2013, 8, 12, 0, 0), datetime.datetime(2015, 1, 28, 0, 0)]</span>
+
+<span class="sd">    :rtype: list</span>
+<span class="sd">    :return: list of two datetime values, denoting the earliest and the latest document publishing date</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">dates_in_format</span> <span class="o">=</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">dates_in_format</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">dates_in_format</span><span class="p">)]</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Filip Ilievski and Marten Postma.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
