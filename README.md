@@ -8,6 +8,7 @@ The practical session consists of four tracks:
 * Datasets and acquisition
   * see folder 'datasets'
   * [example script](https://github.com/cltl/Spinozalongtail/blob/master/wsd_output/Example.ipynb)
+  * code documentation about the metrics can be found [here](https://htmlpreview.github.io/?https://raw.githubusercontent.com/cltl/Spinozalongtail/master/datasets/docs/_build/html/code.html)
 * Resources
   * 'see' [resources track data and instructions](https://docs.google.com/document/d/13rCcr-Is0ygfMmI3cbFwSmALOrWFcYqRJjY_5o_Wryg/edit?usp=sharing)
 * Evaluation
